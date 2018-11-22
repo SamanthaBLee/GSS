@@ -1,6 +1,6 @@
 ---
 title: "Social Survey 2010"
-author: "Put your name here!"
+author: "Samantha Lee"
 date: "Fall 2018"
 output:
   html_document:
@@ -38,21 +38,92 @@ alldata <- read.csv(file="gss2010.csv", header=TRUE)
 ### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+First we will compare race with the belief in continental drift.
 
 ```{r}
 barchartGC(~race+condrift, data=alldata, type = "percent") 
 ```
 
+Looking at the data, there appears to be no significant difference between white and other on the belief of contiental drift, but it appears there is a significant difference between black and white and other with black having more individuals who did not believe in continental drift.
+
+
+
+
+We will now compare race with the agreement of capital punishment.
+
+```{r}
+barchartGC(~race+cappun, data=alldata, type = "percent") 
+```
+
+There appears to be no significant difference between black and other's opinion on capital punishment, but there is a signifcant difference between white and black and other's opinion on capital punishment with white having more individuals who approve of capital punishment.
+
+
+
+
+We will now compare the belief in continental drift to the opinion of capital punishment.
+
+```{r}
+barchartGC(~cappun+condrift, data=alldata, type = "percent") 
+```
+
+Looking at the chart, there appears to be no significant difference between those who favor and those who oppose capital punishment and whether or not they believe in continental drift.
 
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+Now we will create a table to view the data for race compared to belief in continental drift.
+
+```{r}
+tab1 =xtabs(~race+condrift, data=alldata)
+rowPerc(tab1)
+colPerc(tab1)
+```
+
+Looking at all the data, it appears that black people belive in contintal drift the least with 23.3% not beliving in it, others follow with 9.46% not beliving in it, and white with 8.42%.
+
+We will now create a table to compare race to opinion on capital punishment.
+
+```{r}
+tab2 =xtabs(~race+cappun, data=alldata)
+rowPerc(tab2)
+colPerc(tab2)
+```
+
+Looking at the data, it appears individuals who identify as white favor capital punishment the most with 72.74% in favor, other has 56.47% in favor, and black is the least in favor with 46.79% in favor.
+
+We will create a table to compare the belief in continental drift to the opinion of capital punishment.
+
+```{r}
+tab3 =xtabs(~cappun+condrift, data=alldata)
+rowPerc(tab3)
+colPerc(tab3)
+```
+
+Looking at the data, it appears that there is only a small difference between those who favor and oppose capital punishment and their belief in continental drift.  Those who favor capital punishment has about 89.58% who believe in continental drift and those who oppose has about 88.67% who belives in continental drift.
 
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
+$H_0$ The belief of continental drift, the stance on capitol punisment, and race are dependent of eachother.  
+
+$H_a$ The belief of continental drift, the stance on capitol punishment, and race are indepedent of eachother.  
+
+
+We will now preform the Chi Squared test to determine the significance of these results.
+
+```{r}
+chisqtestGC(tab1, graph=TRUE)
+```
+```{r}
+chisqtestGC(tab2, graph=TRUE)
+```
+
+```{r}
+chisqtestGC(tab3, graph=TRUE)
+```
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+After looking at our graphs and tables, it appears that race, belief in continental drift, and opinion on the death penealty are independent of eachother.  Afther preforming the Chi-Square test. The results for of the tests were significant except for in the comparison of belief in continental drift and the opinion on the death penalty which has a P-value of .7919. Since the P-value is greater than .05 we fail to reject the null hypothesis.
